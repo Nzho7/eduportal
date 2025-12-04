@@ -18,15 +18,32 @@ class EduPortalBottomBar extends StatelessWidget {
       onDestinationSelected: (index) {
         if (index == selectedIndex) return;
 
-        if (index == 0) {
-          Navigator.pushReplacementNamed(context, HomeScreen.routeName);
-        } else if (index == 1) {
-          Navigator.pushReplacementNamed(context, SubjectsScreen.routeName);
-        } else if (index == 2) {
-          Navigator.pushReplacementNamed(context, TimeTableScreen.routeName);
-        } else if (index == 3) {
-          Navigator.pushReplacementNamed(context, ProfileScreen.routeName);
+        Widget page;
+        switch (index) {
+          case 0:
+            page = const HomeScreen();
+            break;
+          case 1:
+            page = const SubjectsScreen();
+            break;
+          case 2:
+            page = const TimeTableScreen();
+            break;
+          case 3:
+            page = const ProfileScreen();
+            break;
+          default:
+            return;
         }
+
+        Navigator.pushReplacement(
+          context,
+          PageRouteBuilder(
+            pageBuilder: (context, animation1, animation2) => page,
+            transitionDuration: Duration.zero,
+            reverseTransitionDuration: Duration.zero,
+          ),
+        );
       },
       destinations: const [
         NavigationDestination(

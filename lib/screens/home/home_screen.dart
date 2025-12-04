@@ -499,9 +499,14 @@ class CustomGlassDrawer extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      IconButton(
-                        onPressed: () => Navigator.pop(context),
-                        icon: const Icon(Icons.close),
+                      GlassContainer(
+                        blur: 10,
+                        color: Colors.white.withOpacity(0.3),
+                        borderRadius: BorderRadius.circular(50),
+                        child: IconButton(
+                          onPressed: () => Navigator.pop(context),
+                          icon: const Icon(Icons.close, color: Colors.black87),
+                        ),
                       ),
                     ],
                   ),
@@ -677,22 +682,34 @@ class CustomGlassDrawer extends StatelessWidget {
     required VoidCallback onTap,
     bool isSelected = false,
   }) {
-    return ListTile(
-      leading: Icon(
-        icon,
-        color: isSelected ? Theme.of(context).primaryColor : Colors.black87,
-      ),
-      title: Text(
-        label,
-        style: TextStyle(
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+      decoration: isSelected
+          ? BoxDecoration(
+              color: Theme.of(context).primaryColor.withOpacity(0.25),
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(
+                color: Theme.of(context).primaryColor.withOpacity(0.5),
+              ),
+            )
+          : null,
+      child: ListTile(
+        leading: Icon(
+          icon,
           color: isSelected ? Theme.of(context).primaryColor : Colors.black87,
-          fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
         ),
+        title: Text(
+          label,
+          style: TextStyle(
+            color: isSelected ? Theme.of(context).primaryColor : Colors.black87,
+            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+          ),
+        ),
+        onTap: onTap,
+        selected: isSelected,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16),
       ),
-      onTap: onTap,
-      selected: isSelected,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      contentPadding: const EdgeInsets.symmetric(horizontal: 28),
     );
   }
 
